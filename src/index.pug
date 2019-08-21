@@ -1,0 +1,8 @@
+.grid
+  - var notes = 88
+  - var countDown = notes
+   -for (var i = 0; i <= notes; ++i)
+    .cell(data-note = countDown) #{countDown}
+    - countDown --
+.controls
+  button.play-btn#play-btn play

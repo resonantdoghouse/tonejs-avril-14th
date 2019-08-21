@@ -1,0 +1,115 @@
+$transition-speed: 0.25s;
+
+$light-color: #fff;
+$medium-color: #fa9942;
+$dark-color: #880f12;
+
+* {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+body {
+  background: $light-color;
+  // min-height: 100vh;
+}
+
+.grid {
+  max-width: 900px;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow: scroll;
+  display: grid;
+  grid-template-columns: repeat(7, minMax(40px, 1fr));
+  grid-template-rows: repeat(13, minMax(40px, 1fr));
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+  }
+  grid-gap: 10px;
+  z-index: 999 !important;
+}
+
+.cell {
+  opacity: 0.6;
+  position: relative;
+  background: lighten($light-color, 6%);
+  transition: $transition-speed;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    background: rgba($light-color, 0);
+    transition: $transition-speed;
+    left: 50%;
+    transform: translateX(-50%) rotate(0) scale(0);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    background: rgba($light-color, 0);
+    transition: $transition-speed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) rotate(0) scale(1);
+  }
+  &.active {
+    opacity: 1;
+    transition: $transition-speed;
+    background: rgba($medium-color, 0.6%);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    transform: rotate(0) scale(1.2);
+    z-index: 99;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 30%;
+      background: rgba($medium-color, 0.9%);
+      background-size: cover;
+      transform: translate(-50%, -200%) rotate(0) scale(1.2);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 30%;
+      background: rgba($dark-color, 0.3%);
+      background-size: cover;
+      transform: translate(-50%, 200%) rotate(0) scale(1.2);
+    }
+  }
+}
+
+.controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  .play-btn {
+    background: $dark-color;
+    color: $light-color;
+    box-shadow: none;
+    border: none;
+    padding: 0.625rem 1.25rem;
+    transition: $transition-speed;
+    &:hover,
+    &:focus {
+      background: lighten($dark-color, 10%);
+      border: 1ps solid $dark-color;
+      outline: none;
+    }
+  }
+}
